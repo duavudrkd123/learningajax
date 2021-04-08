@@ -11,19 +11,19 @@
 <script src="js/bootstrap.js"></script>
 <!-- 브라우저를 사용할때 더 안정적으로 동작 -->
 <script type="text/javascript">
-	var request = new XMLHttpRequest();
+	var searchRequest = new XMLHttpRequest();
 	function searchFunction() {
-		request.open("Post", "./UserSearchServlet?userName="
+		searchRequest.open("Post", "./UserSearchServlet?userName="
 				+ encodeURIComponent(document.getElementById("userName")
 						.value()), true);
-		request.onreadystatechange = searchProcess;
-		request.send(null)
+		searchRequest.onreadystatechange = searchProcess;
+		searchRequest.send(null)
 	}
 	function searchProcess() {
 		var table = document.getElementById("ajaxTable");
 		tabel.innerHTML = "";
-		if (request.readyState == 4 && request.status == 200) {
-			var object = eval('(' + request.responseText + ')');
+		if (searchRequest.readyState == 4 && searchRequest.status == 200) {
+			var object = eval('(' + searchRequest.responseText + ')');
 			var result = object.result;
 			for (var i = 0; i < result.length; i++) {
 				var row = table.insertRow(0);
@@ -62,6 +62,47 @@
 				</tr>
 			</thead>
 			<tbody id="ajaxTable">
+			</tbody>
+		</table>
+	</div>
+	<div class="container">
+		<table class="table" style="text-align: center; border: 1px solid #dddddd">
+			<thead>
+				<tr>
+					<th colspan="2" style="background-color: #fafafa; text-align: center;">회원등록양식</th> 
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td style="background-color: #fafafa; text-align: center;"><h5>이름</h5></td>
+					<td><input class="form-control" type="text" id="registerName" size="20"></td>
+				</tr>
+				<tr>
+					<td style="background-color: #fafafa; text-align: center;"><h5>나이</h5></td>
+					<td><input class="form-control" type="text" id="registerAge" size="20"></td>
+				</tr>
+				<tr>
+					<td style="background-color: #fafafa; text-align: center;"><h5>성별</h5></td>
+					<td>
+						<div class="form-group" style="text-align:center; margin: 0 auto;">
+							<div class="btn-group" data-toggle="buttons">
+							<label class="btn btn-primary active">
+								<input type="radio" name="registerGender" autocomplete="off" value="남자" checked>남자
+							</label>
+							<label class="btn btn-primary">
+								<input type="radio" name="registerGender" autocomplete="off" value="여자">여자
+							</label>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td style="background-color: #fafafa; text-align: center;"><h5>이메일</h5></td>
+					<td><input class="form-control" type="text" id="registerEmail" size="20"></td>
+				</tr>
+				<tr>
+					<td colspan="2"><button class="btn btn-primary pull-right" onclick="registerFunction();" type="button">등록</button>
+				</tr>
 			</tbody>
 		</table>
 	</div>
